@@ -65,7 +65,7 @@ The two-letter prefix in `SERVER_NAME`.
 | `ntfy.home.myah-mitchell.com` | A service on ci01, resolvable only inside the home site |
 | `vault.myah-mitchell.com` | Vaultwarden, public, no `SUB_DOMAIN_NAME` at all |
 
-A handful of services are reached from the internet through a Cloudflare Tunnel rather than a site sub-domain. Those use the bare domain, with `SUB_DOMAIN_NAME` empty, and they reach the internet through cloudflared plus traefik-dmz on bh01. Vaultwarden is the only one today, plus Stalwart and Bulwark on mx01 if you follow that optional runbook.
+A handful of services are reached from the internet through a Cloudflare Tunnel rather than a site sub-domain. Those use the bare domain, with `SUB_DOMAIN_NAME` empty, and they reach the internet through cloudflared plus traefik-dmz on bh01. No Vaultwarden container is in this repo yet, so `vault` above is an example. The containers that carry public labels today are ntfy, plus Stalwart and Bulwark on mx01 if you follow that optional runbook.
 
 ## Secrets
 
