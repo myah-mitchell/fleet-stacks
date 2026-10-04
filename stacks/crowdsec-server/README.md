@@ -14,7 +14,7 @@ cscli console enroll <enroll-token>
 To generate an API Key for a Traefik Bouncer run:
 
 ```bash
-docker exec -t crowdsec cscli bouncers add traefik-bouncer-<hostname>
+docker exec -t crowdsec-crowdsec-server cscli bouncers add traefik-bouncer-<hostname>
 ```
 
 To generate a maching login for a Crowsec Satellite run:

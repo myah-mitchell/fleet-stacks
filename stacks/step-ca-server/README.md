@@ -136,7 +136,7 @@ shred -u root_ca_key intermediate.crt intermediate.key
 
 ## Traefik internal cert resolver (wiring, unverified)
 
-`containers/traefik/compose.yaml` has a commented-out `internalca` certificatesresolvers block pointed at this CA's ACME directory endpoint. The DNS-01 challenge specifics are not yet confirmed. step-ca's ACME server can issue without external domain-ownership proof since it's a private CA you already control, but the exact Traefik-side resolver flags (challenge type, whether a dnschallenge provider is even needed for an internal-only zone) need real testing against a running step-ca instance before uncommenting. Don't copy the letsencrypt resolver's DNS-01/Cloudflare config verbatim without checking it actually applies here.
+`containers/traefik/compose.yaml` defines one certificate resolver, `letsencrypt`, and none for this CA. A second resolver pointed at this CA's ACME directory endpoint has not been written. The DNS-01 challenge specifics are not yet confirmed. step-ca's ACME server can issue without external domain-ownership proof since it's a private CA you already control, but the exact Traefik-side resolver flags (challenge type, whether a dnschallenge provider is even needed for an internal-only zone) need real testing against a running step-ca instance before one is added. Don't copy the letsencrypt resolver's DNS-01/Cloudflare config verbatim without checking it actually applies here.
 
 ## Root/intermediate trust distribution
 

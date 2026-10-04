@@ -120,9 +120,11 @@ services:
         Host(`${PROJECT_NAME}.${SERVER_NAME}.${SUB_DOMAIN_NAME}${DOMAIN_NAME}`)"
         ## Middlewares
       - "traefik.http.routers.$PROJECT_NAME-rtr.middlewares=chain-no-auth@file"
-      # Catch any subdomain using individual application forward authentication
-      - "traefik.http.routers.$PROJECT_NAME-output-rtr.rule=HostRegexp(`{subdomain:[a-z0-9-]+}.${SUB_DOMAIN_NAME}${DOMAIN_NAME}`) && PathPrefix(`/outpost.goauthentik.io/`)"
-      - "traefik.http.routers.$PROJECT_NAME-output-rtr.rule=HostRegexp(`{subdomain:[a-z0-9-]+}.${DOMAIN_NAME}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      # Catch the outpost's path on any name under the domain, for individual
+      # application forward authentication. One rule covers the internal names
+      # too, since they sit under the same domain. Traefik v3 takes a plain
+      # regular expression here, and $$ is how compose writes a literal $.
+      - "traefik.http.routers.$PROJECT_NAME-output-rtr.rule=HostRegexp(`^.+[.]${DOMAIN_NAME}$$`) && PathPrefix(`/outpost.goauthentik.io/`)"
         ## HTTP Services
       - "traefik.http.services.$PROJECT_NAME-svc.loadbalancer.server.port=9000"
         ## Komodo Labels

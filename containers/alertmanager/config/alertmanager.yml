@@ -1,5 +1,20 @@
+# Every alert goes to mailrise as mail, and mailrise posts it to the ntfy
+# alerts-infra topic. The ntfy token lives in mailrise.conf, so this file holds
+# no secret. Alertmanager reads no environment variables in its config.
+#
+# core-mailrise is the mailrise container in the core-infra stack, reached over
+# the shared proxy network. Both stacks have to run on the same host.
+global:
+  smtp_smarthost: core-mailrise:8025
+  smtp_from: alertmanager@mailrise.xyz
+  smtp_require_tls: false
+
 route:
-  receiver: blackhole
+  receiver: mailrise
+  group_by: [alertname]
 
 receivers:
-  - name: blackhole
+  - name: mailrise
+    email_configs:
+      - to: infra@mailrise.xyz
+        send_resolved: true
