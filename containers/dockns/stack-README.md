@@ -17,7 +17,7 @@ dockns drives two DNS providers per VM:
    manage DNS records (Settings → System → API, or wherever your controller version
    puts it).
 2. Set `DOCKNS_UNIFI_HOST` to that console's own local URL, e.g.
-   `https://192.168.1.1`, not `api.ui.com`. This is deliberately the local
+   `https://172.16.7.1`, not `api.ui.com`. This is deliberately the local
    connector, not the remote/cloud one: internal DNS management shouldn't depend on
    UniFi's cloud API being reachable, and it keeps the traffic on the LAN. Home-site
    and cloud-site VMs point at their own site's console, so these values differ per

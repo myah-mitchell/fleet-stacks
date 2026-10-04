@@ -111,6 +111,13 @@ gunzip -c /opt/docker/volumes/$projectName/postgres-backup-data/daily/<dump-file
   | docker exec -i <scratch-postgres-container> psql -U <user> -d <db>
 ```
 
+| Placeholder | Value |
+| --- | --- |
+| `<dump-file>` | The dump's name without `.sql.gz`, from the list above |
+| `<scratch-postgres-container>` | The scratch Postgres container to restore into |
+| `<user>` | The database user, such as `komodo-admin` |
+| `<db>` | The database to restore into |
+
 ## Create needed folders for geoipupdate
 
 The host's NixOS configuration sets these up when the host is deployed.

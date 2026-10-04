@@ -151,7 +151,7 @@ After a suspected compromise, do all of the following before the next run:
 2. Make a new deploy age key. Put its public key in `.sops.yaml` in place of the old one, run `sops updatekeys` and then `sops rotate -i` on every sops file in fleet-private, and commit.
 3. Make a new SSH key for the deploy account, put its public key in the fleet's values, and deploy to every host from the control shell.
 4. Delete the Proxmox API token and make a new one.
-5. Make new SSH host keys, since the old ones could be read. For each host, remove `secrets/host-keys/<host>.yaml` from fleet-private, run `new-host-key` for the host, commit, and install the host again. The installer ISO holds no key, and needs no change.
+5. Make new SSH host keys, since the old ones could be read. For each host, remove its file under `secrets/host-keys/` in fleet-private, run `new-host-key` for the host, commit, and install the host again. The installer ISO holds no key, and needs no change.
 
 ### Add sops
 
@@ -237,3 +237,10 @@ Restore into a *scratch* postgres instance first, never directly into the live o
 gunzip -c /opt/docker/volumes/$projectName/postgres-backup-data/daily/<dump-file>.sql.gz \
   | docker exec -i <scratch-postgres-container> psql -U <user> -d <db>
 ```
+
+| Placeholder | Value |
+| --- | --- |
+| `<dump-file>` | The dump's name without `.sql.gz`, from the list above |
+| `<scratch-postgres-container>` | The scratch Postgres container to restore into |
+| `<user>` | The database user, such as `komodo-admin` |
+| `<db>` | The database to restore into |

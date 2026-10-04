@@ -1,11 +1,27 @@
 # Project Layout
 
+## Placeholders
+
+| Placeholder | Value |
+| --- | --- |
+| `<image-name>` | A container's folder under `containers/`, named for its image, such as `traefik` |
+| `<stack-name>` | A stack's folder under `stacks/`, such as `core-infra` |
+| `<project>` | The stack's `PROJECT_NAME`, such as `core` |
+| `<name>` | Any container folder that a stack's compose file extends |
+| `<container-1>`, `<container-2>` | The containers in a stack, in the order the stack lists them |
+| `<heading-1>`, `<heading-2>` | Headings in the global section of the env file |
+| `<key>`, `<value>` | A setting and its value |
+| `<komodo-key-name>` | The name of a Komodo Variable or Secret |
+| `<notes>` | Notes at the top of the file |
+| `<stack-description>` | What the stack is for |
+| `<image-stack-readme>` | The contents of the container's `stack-README.md` |
+
 ## Folder layout
 The folder layout looks like the following with each sequential indent being another folder deep. `<>` are used to indicate values that would be replaced depending on the container or stack and that multiple entries could exist. Any items that are folders will be in **bold**.
 
 fleet-stacks
 * **containers** _Folder containing all container sources_
-  * **\<imageName>** - _Folder name should be the image name_
+  * **`<image-name>`** - _Folder name should be the image name_
     * **config** - _Optional folder for any config needed to run container (e.g. traefik/rules, vector/config)_
     * compose.yaml - _This should only contain a single image, though there could be multiple containers using this image if there are different uses of the image (e.g. agent vs server)_
     * komodo.env - _Only contains items specific to this container_
@@ -14,7 +30,7 @@ fleet-stacks
     * setup.yaml - _Optional host setup: folders, seeded config files, and firewall ports. Rendered into stack README.md files, and carried to the host's NixOS configuration by the ansible playbook `nixos-sync.yml`_
     * testing.env - _Container-specific non-sensitive testing defaults in KEY: VALUE format_
 * **stacks** - _Folder containing all stacks_
-  * **\<stackName>** - _Friendly name of stack_
+  * **`<stack-name>`** - _Friendly name of stack_
     * **config** - _Any containers that need config outside of the compose file will store that config in a folder named **config**_
     * compose.yaml - _This is the compose file that will control the stack. May use `include` to reference other stack compose files._
     * komodo.env - _This file is created by build.py_
@@ -85,7 +101,7 @@ A stack using `service: .crowdsec-server` would include "Common Settings" and "S
 ## komodo.env
 ### File Structure
 
-The komodo.env file uses a markdown-like format with headings preceded with `#=` (`#=`, `#==`, etc.) followed by key:value pairings. The following code snippet has an example with `<>` used to indicate values that would be replaced depending on the container or stack. Some of the values may be _[[\<Komodo Key Name>]]_ for referencing Komodo variables.
+The komodo.env file uses a markdown-like format with headings preceded with `#=` (`#=`, `#==`, etc.) followed by key:value pairings. The following code snippet has an example with `<>` used to indicate values that would be replaced depending on the container or stack. Some of the values may be `[[<komodo-key-name>]]` for referencing Komodo variables.
 
 ```env
 ################################################################
@@ -95,20 +111,20 @@ The komodo.env file uses a markdown-like format with headings preceded with `#=`
 #= Project Specific Settings
 
 #= Stack Specific Settings
-#== <container 1>
+#== <container-1>
 <key>: <value>
 <key>: <value>
 
-#== <container 2>
+#== <container-2>
 <key>: <value>
 <key>: <value>
 
 #= Global Settings
-#== <heading 1>
+#== <heading-1>
 <key>: <value>
 <key>: <value>
 
-#== <heading 2>
+#== <heading-2>
 <key>: <value>
 <key>: <value>
 ```
@@ -135,18 +151,18 @@ The .env file is a standard Docker Compose environment file using `KEY=VALUE` fo
 # Project Specific Settings
 
 # Stack Specific Settings
-## <container 1>
-<KEY>=<value>
-<KEY>=<value>
+## <container-1>
+<key>=<value>
+<key>=<value>
 
-## <container 2>
-<KEY>=<value>
-<KEY>=<value>
+## <container-2>
+<key>=<value>
+<key>=<value>
 
 # Global Settings
-## <heading 1>
-<KEY>=<value>
-<KEY>=<value>
+## <heading-1>
+<key>=<value>
+<key>=<value>
 ```
 
 ### How file is generated
@@ -176,27 +192,27 @@ The .env file is a standard Docker Compose environment file using `KEY=VALUE` fo
 
 ```markdown
 # Initial Deployment Requirements
-## <imageName> Requirements
-<content from imageName stack-README.md>
+## <image-name> Requirements
+<image-stack-readme>
 ```
 
 #### Stacks
 
 ```markdown
-# <stackName> Overview
-<information about the stack>
+# <stack-name> Overview
+<stack-description>
 
 # Initial Deployment Requirements
-## <imageName> Requirements
-<content from imageName stack-README.md>
+## <image-name> Requirements
+<image-stack-readme>
 
-## <imageName> Requirements
-<content from imageName stack-README.md>
+## <image-name> Requirements
+<image-stack-readme>
 ```
 
 ### How file is generated
 
-1. **Starting point**: If an existing stack _README.md_ exists, it is used as the starting point. Otherwise, _base-README.md_ is used (with `<stackName>` substituted).
+1. **Starting point**: If an existing stack _README.md_ exists, it is used as the starting point. Otherwise, _base-README.md_ is used, with the stack's name filled in.
 
 2. **Source collection**: The _base-README.md_ (always) and each container's _stack-README.md_ are parsed into section trees. Base sections are treated as the first source, followed by container sections in discovery order.
 
@@ -248,11 +264,11 @@ firewall:
 
 | Key | Meaning |
 | --- | --- |
-| `folders[].path` | Folder under the root below, inside `<projectName>/`. Created if missing, never recursively re-owned |
+| `folders[].path` | Folder under the root below, inside `<project>/`. Created if missing, never recursively re-owned |
 | `folders[].root` | Optional, `volumes` (the default) for `${DOCKER_VOLUMES}` or `logs` for `${DOCKER_LOGS}` |
 | `folders[].owner`, `group` | Numeric host IDs. A container's own UID 1000 is `101000` under userns-remap |
 | `folders[].mode` | Optional, a quoted octal string such as `"0700"` |
-| `files[].path` | File under `${DOCKER_VOLUMES}/<projectName>/`, inside one of the `volumes` folders above |
+| `files[].path` | File under `${DOCKER_VOLUMES}/<project>/`, inside one of the `volumes` folders above |
 | `files[].source` | Repo-relative file to copy there. Copied only when the destination does not exist yet |
 | `files[].owner`, `group`, `mode` | As for folders, with `mode` optional |
 | `firewall[].port`, `proto` | Port number, and `tcp` or `udp` |
@@ -262,7 +278,7 @@ firewall:
 
 build.py rejects unknown keys, missing keys, paths containing `..`, and sources that do not exist. It needs PyYAML to read these files.
 
-In a stack README, the rendered sections go under `# Create and Setup Required Folders`, as `## Create needed folders for <imageName>` and `## Open the firewall for <imageName>`. Each is a table of what the host has to provide. Folders and seed files are followed by the commands that make them by hand, in a collapsed block. Ports have no such block, because the firewall of a NixOS host changes only through its configuration. A container's own _stack-README.md_ can use either heading to add prose, which follows the generated text.
+In a stack README, the rendered sections go under `# Create and Setup Required Folders`, as `## Create needed folders for <image-name>` and `## Open the firewall for <image-name>`. Each is a table of what the host has to provide. Folders and seed files are followed by the commands that make them by hand, in a collapsed block. Ports have no such block, because the firewall of a NixOS host changes only through its configuration. A container's own _stack-README.md_ can use either heading to add prose, which follows the generated text.
 
 Each stack's own logs and volumes folders come from _base-README.md_, and the host's NixOS configuration creates those too, one pair for each project.
 
