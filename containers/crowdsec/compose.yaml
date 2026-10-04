@@ -91,7 +91,9 @@ services:
       - ./config/allowlist.yaml:/etc/crowdsec/parsers/s02-enrich/custom-allowlist.yaml
       - ${DOCKER_VOLUMES}/${PROJECT_NAME}/crowdsec-data:/var/lib/crowdsec/data
       - ${DOCKER_VOLUMES}/${PROJECT_NAME}/crowdsec-config:/etc/crowdsec
-      - ${DOCKER_LOGS}/${PROJECT_NAME}/traefik:/var/log/traefik
+      # Traefik's own stack writes this folder, so the path names its project
+      # and not this one. Vector reads the same folder.
+      - ${DOCKER_LOGS}/traefik/traefik:/var/log/traefik:ro
     networks:
       - frontend
       - socket_proxy
@@ -111,7 +113,7 @@ services:
     expose:
       - 8080 # http api for bouncers
       - 6060 # metrics endpoint for prometheus
-      - 7422 # appsec waf endpoint
+      # - 7422 # appsec waf endpoint. Nothing listens until an AppSec acquisition is added.
     environment:
       DISABLE_LOCAL_API: false # Disable LAPI and use this instance as an log processor only.
       DISABLE_AGENT: false # Disable the log processor and use this instance as an LAPI only.
