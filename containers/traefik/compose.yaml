@@ -248,7 +248,7 @@ services:
         Host(`${SERVER_NAME}.${SUB_DOMAIN_NAME}${DOMAIN_NAME}`) ||
         Host(`${TRAEFIK_HOSTNAME}.${SERVER_NAME}.${SUB_DOMAIN_NAME}${DOMAIN_NAME}`) ||
         Host(`${PROJECT_NAME}.${SERVER_NAME}.${SUB_DOMAIN_NAME}${DOMAIN_NAME}`)"
-      - "traefik.http.routers.traefik.entrypoints=dashboard"  # Defined in traefik.yaml
+      - "traefik.http.routers.traefik.entrypoints=dashboard"  # Defined in the command above
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.middlewares=${TRAEFIK_AUTH_CHAIN:-chain-authentik@file}"
 
