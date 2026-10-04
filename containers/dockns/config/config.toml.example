@@ -4,8 +4,8 @@ host = ""
 api_key = ""
 
 [name_servers.internaldns.record_defaults]
-A.ip = "192.168.1.50"
-CNAME.target_domain = "domain.tld"
+A.ip = "172.16.7.111"
+CNAME.target_domain = "myah-mitchell.com"
 ttl = 60
 
 
@@ -15,10 +15,10 @@ api_key = ""
 account_id = ""
 
 zone_id = {
-    "domain.tld" = "zone id" 
+    "myah-mitchell.com" = "zone id" 
 }
 
 [name_servers.externaldns.record_defaults]
-A.ip = "192.168.1.50"
-CNAME.target_domain = "domain.tld"
+A.ip = "172.16.7.111"
+CNAME.target_domain = "myah-mitchell.com"
 ttl = 300

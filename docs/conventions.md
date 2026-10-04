@@ -2,6 +2,15 @@
 
 The naming and secrets rules every stack, runbook, and script in this repo assumes. Read this before adding a container, adding a stack, or provisioning a host.
 
+## Placeholders
+
+| Placeholder | Value |
+| --- | --- |
+| `<role>` | The two-letter role, from [Roles](#roles) |
+| `<nn>` | A two-digit number, such as `01` |
+| `<service>` | The service a database belongs to, such as `komodo` |
+| `<container>` | A container's folder under `containers/`, such as `cloudflared` |
+
 ## Naming
 
 Every stack resolves its identity from four variables, set per deployment in Komodo and never hardcoded in this repo.
@@ -9,7 +18,7 @@ Every stack resolves its identity from four variables, set per deployment in Kom
 | Variable | Meaning | Example |
 | --- | --- | --- |
 | `PROJECT_NAME` | The stack's own short name | `komodo` |
-| `SERVER_NAME` | This VM's hostname, `<role><NN>`, no site prefix | `km01` |
+| `SERVER_NAME` | This VM's hostname, `<role><nn>`, no site prefix | `km01` |
 | `SUB_DOMAIN_NAME` | The site this VM lives at, with a trailing dot | `home.` |
 | `DOMAIN_NAME` | The real domain | `myah-mitchell.com` |
 

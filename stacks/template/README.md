@@ -1,2 +1,2 @@
-# <stackName> Overview
-<information about the stack>
+# `<stack-name>` Overview
+`<stack-description>`

@@ -7,7 +7,7 @@
 To Enroll the Server run the following:
 
 ```bash
-cscli console enroll <EnrollToken>
+cscli console enroll <enroll-token>
 ```
 
 To generate an API Key for a Traefik Bouncer run:

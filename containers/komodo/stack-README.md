@@ -17,6 +17,11 @@ accounts = [
 ]
 ```
 
+| Placeholder | Value |
+| --- | --- |
+| `<github-username>` | The GitHub account that owns the token |
+| `<fine-grained-read-only-pat>` | A fine-grained personal access token with read-only access to that repo |
+
 Add a `[secrets]` block in the same file for any `[[VAR]]` reference used across this repo's `komodo.env` files that you would rather Komodo resolve centrally than set per stack.
 
 The checkout only ever holds the `.example`. The filled-in copy stays under `/opt/docker/volumes`, which nothing in this repo can commit, matching every other container here that handles a real credential. See cloudflared or mailrise.

@@ -8,7 +8,7 @@ This will start up a Crowdsec stack with an instance of Crowdsec running as a se
 To Enroll the Server run the following:
 
 ```bash
-cscli console enroll <EnrollToken>
+cscli console enroll <enroll-token>
 ```
 
 To generate an API Key for a Traefik Bouncer run:
