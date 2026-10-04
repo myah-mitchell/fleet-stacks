@@ -16,8 +16,8 @@ configs:
     urls:
       - "ntfy://REPLACE_WITH_NTFY_TOKEN@ntfy/alerts-backups"
 
-  # Everything else -> to: infra@mailrise.xyz. Alertmanager is not wired to
-  # this or to ntfy yet: its only receiver discards every alert.
+  # Everything else -> to: infra@mailrise.xyz. Alertmanager sends every alert
+  # here. See containers/alertmanager/config/alertmanager.yml.
   infra:
     urls:
       - "ntfy://REPLACE_WITH_NTFY_TOKEN@ntfy/alerts-infra"
