@@ -3,13 +3,8 @@
 The standard per-VM bundle. Every VM in the fleet runs this one stack, and it is
 the only stack most VMs run besides whatever that VM exists to host.
 
-It does four jobs.
-
-Traefik terminates TLS for that VM's own services and puts them behind the
-Authentik auth chain, without needing tf01 to be involved. traefik-kop publishes
-a router into tf01's shared Redis, but only for a service that also carries a
-`kop-public.traefik.*` label, so reaching the wider network is a per-service
-choice rather than a per-VM one.
+It does three jobs. It holds no Traefik: a VM's routes come from traefik-agent,
+which runs beside this stack.
 
 vmagent, vlagent, vector and cadvisor are the VM's telemetry. Between them they
 cover the host's own metrics from Node Exporter, per-container metrics from
@@ -20,10 +15,9 @@ dockns keeps the VM's DNS records in step with the containers running on it.
 
 dozzle-agent exposes this VM's container logs to a central Dozzle on port 7007.
 
-Deploy it only once ci01, id01 and pk01 exist: it writes metrics to ci01, uses
-id01 for the auth chain, and takes its Traefik certificate from pk01. Before
-those are up, traefik-bootstrap is the temporary stand-in. Do not run both on one
-VM, because they bind the same ports 80, 443 and 8443.
+Deploy it only once ci01's VictoriaMetrics backend exists, since it writes
+metrics and logs there. A host in bootstrap mode leaves this stack out until
+then.
 
 # Initial Deployment Requirements
 ## Prerequisites for using vmagent

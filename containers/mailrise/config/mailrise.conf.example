@@ -16,9 +16,8 @@ configs:
     urls:
       - "ntfy://REPLACE_WITH_NTFY_TOKEN@ntfy/alerts-backups"
 
-  # Everything else -> to: infra@mailrise.xyz. vmalert's Alertmanager webhook
-  # can hit ntfy's own HTTP API directly instead of going through mailrise; see
-  # Phase 2's vmalert -> ntfy wiring.
+  # Everything else -> to: infra@mailrise.xyz. Alertmanager sends every alert
+  # here. See containers/alertmanager/config/alertmanager.yml.
   infra:
     urls:
       - "ntfy://REPLACE_WITH_NTFY_TOKEN@ntfy/alerts-infra"

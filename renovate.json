@@ -28,7 +28,7 @@
   ],
   "packageRules": [
     {
-      "description": "Major version bumps get their own dashboard-approval gate. Everything else (minor/patch) opens a normal PR straight away. Komodo's ResourceSync is what actually redeploys once you merge; Renovate only opens the PR.",
+      "description": "Major version bumps get their own dashboard-approval gate. Everything else (minor/patch) opens a normal PR straight away. Renovate only opens the PR. Merging redeploys nothing by itself: the ResourceSync has no webhook, so a Stack picks the new tag up the next time it is deployed.",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
       "labels": ["dependencies", "major-version"],
