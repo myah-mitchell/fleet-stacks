@@ -86,7 +86,7 @@ services:
     container_name: "${PROJECT_NAME}-${STEPCA_HOSTNAME}"
     environment:
       <<: [*environment_tz, *environment_user]
-      DOCKER_STEPCA_INIT_NAME: ${STEPCA_CA_NAME:-Home Internal CA}
+      DOCKER_STEPCA_INIT_NAME: ${STEPCA_CA_NAME:-Home}
       # Every hostname/wildcard this CA needs to issue for: internal zone only,
       # never the public myah-mitchell.com domain (Cloudflare/Let's Encrypt owns that).
       DOCKER_STEPCA_INIT_DNS_NAMES: ${STEPCA_HOSTNAME}.${SERVER_NAME}.${SUB_DOMAIN_NAME}${DOMAIN_NAME},${SUB_DOMAIN_NAME}${DOMAIN_NAME},*.${SUB_DOMAIN_NAME}${DOMAIN_NAME}
