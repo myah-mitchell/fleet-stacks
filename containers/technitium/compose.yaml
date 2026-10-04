@@ -75,11 +75,12 @@ services:
     container_name: "${PROJECT_NAME}-${TECHNITIUM_HOSTNAME}"
     ports:
       # - "5380:5380/tcp" #DNS web console (HTTP)
-      - "53443:53443/tcp" #DNS web console (HTTPS)
+      # - "53443:53443/tcp" #DNS web console (HTTPS). Off until the console is given a certificate.
       - "${TECHNITIUM_BIND_IP}:53:53/udp" #DNS service
       - "${TECHNITIUM_BIND_IP}:53:53/tcp" #DNS service
-      - "${TECHNITIUM_BIND_IP}:853:853/udp" #DNS-over-QUIC service
-      - "${TECHNITIUM_BIND_IP}:853:853/tcp" #DNS-over-TLS service
+      # Off until the optional protocols are enabled in the console.
+      # - "${TECHNITIUM_BIND_IP}:853:853/udp" #DNS-over-QUIC service
+      # - "${TECHNITIUM_BIND_IP}:853:853/tcp" #DNS-over-TLS service
       # - "443:443/udp" #DNS-over-HTTPS service (HTTP/3)
       # - "443:443/tcp" #DNS-over-HTTPS service (HTTP/1.1, HTTP/2)
       # - "80:80/tcp" #DNS-over-HTTP service (use with reverse proxy or certbot certificate renewal)
