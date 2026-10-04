@@ -75,7 +75,7 @@ docker exec -it $projectName-ntfy ntfy access publisher 'alerts-*' write-only
 docker exec -it $projectName-ntfy ntfy token add publisher
 ```
 
-Use the resulting token as the `Authorization: Bearer <token>` header (or `ntfy://token@host/topic` Apprise-style URL) in Alertmanager's webhook config and `mailrise.conf`. Subscribe to the same `alerts-*` topics from the ntfy phone/desktop app using your own account.
+Use the resulting token as the `Authorization: Bearer <token>` header (or `ntfy://token@host/topic` Apprise-style URL) in `mailrise.conf`, which is where Alertmanager's alerts arrive as well. Subscribe to the same `alerts-*` topics from the ntfy phone/desktop app using your own account.
 
 ## Create needed folders for mailrise
 

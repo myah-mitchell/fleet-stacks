@@ -98,6 +98,9 @@ services:
       # is, so on backend alone 8025 is silently never bound on the host.
       - frontend
       - backend
+      # Alertmanager is in another stack on the same host and reaches this
+      # container by name over the shared network.
+      - proxy
     depends_on:
       ntfy:
         condition: service_healthy

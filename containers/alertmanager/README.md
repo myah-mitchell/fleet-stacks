@@ -9,5 +9,7 @@ services:
       service: .alertmanager
 ```
 
-## Alert routing is unconfigured by default
-`config/alertmanager.yml` ships with `route.receiver: blackhole` and no other receivers defined. As shipped, every alert Alertmanager receives is silently discarded. Nothing is emailed, or posted to Slack, a webhook, ntfy, or anywhere else. Before relying on this stack for real alerting, edit `config/alertmanager.yml` to add a receiver (e.g. `email_configs`, `slack_configs`, `webhook_configs`) and update `route.receiver` to point at it.
+## Alert routing
+`config/alertmanager.yml` sends every alert as mail to `infra@mailrise.xyz` on the mailrise container of the core-infra stack, which posts it to the ntfy `alerts-infra` topic. The ntfy token is in `mailrise.conf`, so Alertmanager's config holds no secret.
+
+Alertmanager reaches mailrise by its container name, `core-mailrise`, over the shared proxy network. Both stacks have to run on the same host. If they do not, change `smtp_smarthost` to the other host's address and mailrise's published port.
