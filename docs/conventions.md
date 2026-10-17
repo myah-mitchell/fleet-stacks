@@ -54,6 +54,7 @@ The two-letter prefix in `SERVER_NAME`.
 | `bk` | Backup, PBS (pre-existing) |
 | `mx` | Mail: Stalwart and Bulwark, optional |
 | `vh` | Hypervisor, PVE (pre-existing) |
+| `ex` | Example |
 
 ### Worked examples
 
