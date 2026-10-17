@@ -43,7 +43,7 @@ services:
     environment:
       # tofu_state is the OpenTofu state database, created on first start by
       # postgres-initdb/10-tofu-state.sh. See
-      # https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/foundation/handover/#state-database
+      # https://fleet-docs.myah-mitchell.com/fleet-bootstrap/foundation/handover/#state-database
       POSTGRES_BACKUP_DB: ${POSTGRES_DB},tofu_state
       POSTGRES_BACKUP_USER: ${POSTGRES_USER}
       POSTGRES_BACKUP_PASSWORD: ${POSTGRES_PASSWORD}

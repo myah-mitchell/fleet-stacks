@@ -1,6 +1,6 @@
 # fleet-stacks docs
 
-The bootstrap runbooks are in [Fleet bootstrap](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/) on the docs site, since they span fleet-nixos, fleet-ansible, OpenTofu, Komodo and Semaphore as well as this repo.
+The bootstrap runbooks are in [Fleet bootstrap](https://fleet-docs.myah-mitchell.com/fleet-bootstrap/) on the docs site, since they span fleet-nixos, fleet-ansible, OpenTofu, Komodo and Semaphore as well as this repo.
 
 Two pages are here, because they describe this repo itself:
 

@@ -3,7 +3,7 @@
 # owns only that database. The postgres image runs this once, on the first
 # start of an empty data directory, and never again. Changing the password
 # later means ALTER ROLE by hand. See
-# https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/foundation/handover/#state-database
+# https://fleet-docs.myah-mitchell.com/fleet-bootstrap/foundation/handover/#state-database
 set -e
 
 : "${TOFU_STATE_POSTGRES_PASSWORD:?TOFU_STATE_POSTGRES_PASSWORD is not set}"
