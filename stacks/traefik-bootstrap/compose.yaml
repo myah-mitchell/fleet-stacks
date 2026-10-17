@@ -6,7 +6,7 @@ name: ${PROJECT_NAME}
 
 # Temporary, per-VM stack for a host in bootstrap mode, before the hosts the real
 # Traefik depends on exist. See
-# https://myah-mitchell.github.io/docs/fleet-bootstrap/stacks/traefik-bootstrap/
+# https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/stacks/traefik-bootstrap/
 #
 # It runs the same Traefik as every other stack. The .traefik-bootstrap variant it
 # extends is that same service under a second name, which is how build.py knows to

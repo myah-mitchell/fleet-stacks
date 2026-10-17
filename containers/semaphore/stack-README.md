@@ -91,7 +91,7 @@ docker exec semaphore-semaphore /nix/var/nix/profiles/default/bin/nix \
 
 ## Wiring it to the fleet-ansible repo after deploy
 
-Full walkthrough in [The Semaphore project](https://myah-mitchell.github.io/docs/fleet-bootstrap/foundation/semaphore-project/): the Project, the SSH credential, the repos, the inventory, the run's secrets, and a Template that runs against the fleet.
+Full walkthrough in [The Semaphore project](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/foundation/semaphore-project/): the Project, the SSH credential, the repos, the inventory, the run's secrets, and a Template that runs against the fleet.
 
 Two points worth knowing before you start.
 

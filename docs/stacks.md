@@ -1,6 +1,6 @@
 # Stacks
 
-Every stack in `stacks/`, what it deploys, and where it runs. For the order hosts come up in, see [Fleet bootstrap](https://myah-mitchell.github.io/docs/fleet-bootstrap/). For what a stack is made of mechanically, see [Project layout](../scripts/project-layout.md).
+Every stack in `stacks/`, what it deploys, and where it runs. For the order hosts come up in, see [Fleet bootstrap](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/). For what a stack is made of mechanically, see [Project layout](../scripts/project-layout.md).
 
 A stack is a deployable composition of containers. Only its `compose.yaml` is hand-written, and `scripts/build.py` generates the rest.
 
@@ -8,7 +8,7 @@ The generated files are `komodo.env`, `.env`, `README.md`, and `setup.yaml`.
 
 Each stack's own generated `README.md` carries the per-stack prerequisites and what the stack needs from its host: folders, seed files, and open ports. It is the authoritative source for those.
 
-Every stack also has a reference page on the docs site, under [Stacks](https://myah-mitchell.github.io/docs/fleet-bootstrap/stacks/). Whether a host is built yet is tracked in one place, the [running order](https://myah-mitchell.github.io/docs/fleet-bootstrap/#running-order).
+Every stack also has a reference page on the docs site, under [Stacks](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/stacks/). Whether a host is built yet is tracked in one place, the [running order](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/#running-order).
 
 ## One stack per host
 
@@ -28,9 +28,9 @@ These are the stacks that define what a specific VM is for.
 
 traefik-dmz is the public edge. Only port 443 outbound to the internal Traefik hosts and 6379 outbound to traefik-server's Redis need to leave the DMZ.
 
-core-infra is the odd one out in this table. It is not what ci01 is for, it is where the fleet's alerts and uptime checks land and its outgoing mail is relayed, and ci01 is simply the host with the rest of the observability stack on it already. See [Core infrastructure (ci01)](https://myah-mitchell.github.io/docs/fleet-bootstrap/hosts/ci01-core-infra/).
+core-infra is the odd one out in this table. It is not what ci01 is for, it is where the fleet's alerts and uptime checks land and its outgoing mail is relayed, and ci01 is simply the host with the rest of the observability stack on it already. See [Core infrastructure (ci01)](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/hosts/ci01-core-infra/).
 
-stalwart-server is optional. It gives the domain real mailboxes with accounts from Authentik, and nothing else in the fleet depends on it. See [Mail (mx01)](https://myah-mitchell.github.io/docs/fleet-bootstrap/hosts/mx01-mail/).
+stalwart-server is optional. It gives the domain real mailboxes with accounts from Authentik, and nothing else in the fleet depends on it. See [Mail (mx01)](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/hosts/mx01-mail/).
 
 ## One stack per VM
 
@@ -46,9 +46,9 @@ system-agent is what every VM runs: metrics, logs, container DNS, and a Dozzle a
 
 traefik-agent is the Traefik half, for the VMs that publish something. That VM's own Traefik terminates TLS and runs the `chain-authentik@file` auth chain for its services directly, without needing tf01. traefik-kop publishes a router into tf01's shared Redis only when a service also carries a `kop-public.traefik.*` label, so reaching the internet is a per-service opt-in rather than a per-VM setting. tf01 and bh01 get all of it through traefik-server and traefik-dmz instead, so they do not list traefik-agent separately.
 
-system-agent needs the monitoring backends on ci01, and traefik-agent needs the auth chain (id01) and tf01's Redis, so neither can run before those exist. Until then a host is in bootstrap mode: ansible leaves both out and deploys traefik-bootstrap in traefik-agent's place. See [Bootstrap mode](https://myah-mitchell.github.io/docs/fleet-bootstrap/concepts/bootstrap-mode/). Do not run both Traefiks on one VM: they fight over ports 80, 443, and 8443.
+system-agent needs the monitoring backends on ci01, and traefik-agent needs the auth chain (id01) and tf01's Redis, so neither can run before those exist. Until then a host is in bootstrap mode: ansible leaves both out and deploys traefik-bootstrap in traefik-agent's place. See [Bootstrap mode](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/concepts/bootstrap-mode/). Do not run both Traefiks on one VM: they fight over ports 80, 443, and 8443.
 
-A VM gets a stack by listing it under `docker_stacks` in the inventory. See [How a host is built](https://myah-mitchell.github.io/docs/fleet-bootstrap/concepts/how-a-host-is-built/).
+A VM gets a stack by listing it under `docker_stacks` in the inventory. See [How a host is built](https://myah-mitchell.github.io/fleet-docs/fleet-bootstrap/concepts/how-a-host-is-built/).
 
 ## Composition layers
 
